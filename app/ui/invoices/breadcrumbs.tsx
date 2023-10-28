@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import Link from 'next/link';
-import { textFont } from '@/app/ui/fonts';
+import { textFont,titleFont } from '@/app/ui/fonts';
 
 interface Breadcrumb {
   label: string;
@@ -22,6 +22,7 @@ export default function Breadcrumbs({
             aria-current={breadcrumb.active}
             className={clsx(
               breadcrumb.active ? 'text-gray-900' : 'text-gray-500',
+              breadcrumb.active ? titleFont.className : ''
             )}
           >
             <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
