@@ -3,23 +3,45 @@ import { z } from 'zod';
 // 一个 TypeScript 优先的验证库
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
+import { useDebouncedCallback } from 'use-debounce';
+
 // 清除缓存
 import { redirect } from 'next/navigation';
 // 重定向
 const InvoiceSchema = z.object({
   id: z.string(),
-  customerId: z.string(),
-  amount: z.coerce.number(),
-  status: z.enum(['pending', 'paid']),
+  customerId: z.string({
+    invalid_type_error: 'Please select a customer.',
+  }),
+  amount: z.coerce.number().gt(0, { message: 'Please enter an amount greater than $0.' }),
+  status: z.enum(['pending', 'paid'], {
+    invalid_type_error: 'Please select an invoice status.',
+  }),
   date: z.string(),
 });
+export type State = {
+  errors?: {
+    customerId?: string[];
+    amount?: string[];
+    status?: string[];
+  };
+  message?: string | null;
+};
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
-export async function createInvoice(formData: FormData) {
-  const { customerId, amount, status } = CreateInvoice.parse({
+export async function createInvoice(prevState: State, formData: FormData) {
+  const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
+  // 表单验证
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Invoice.',
+    };
+  }
+  const { customerId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
   const date = new Date().toISOString().split('T')[0];
   try {
@@ -30,22 +52,29 @@ export async function createInvoice(formData: FormData) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');
   }
+  // 定义表单的action
   revalidatePath('/admin/invoices');
+  // 重定向
   redirect('/admin/invoices');
 }
 
 
 const UpdateInvoice = InvoiceSchema.omit({ date: true });
-export async function updateInvoice(formData: FormData) {
-  const { id, customerId, amount, status } = UpdateInvoice.parse({
+export async function updateInvoice(prevStatu: State, formData: FormData) {
+  const validatedFields = UpdateInvoice.safeParse({
     id: formData.get('id'),
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
-
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update Invoice.',
+    };
+  }
+  const { id, customerId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
-
   await sql`
     UPDATE invoices
     SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
