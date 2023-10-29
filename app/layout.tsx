@@ -1,7 +1,6 @@
 import '@/app/styles/global.css';
 import { textFont } from '@/app/ui/fonts';
 import { Metadata } from 'next';
-import  "@/app/styles/globals.css";
  
 export const metadata: Metadata = {
   title: {

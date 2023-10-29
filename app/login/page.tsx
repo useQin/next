@@ -2,6 +2,7 @@ import AcmeLogo from '@/app/ui/acme-logo';
 import LoginForm from '../ui/login-form';
 import "@/app/styles/admin.css";
 import { Metadata } from 'next';
+import  "@/app/styles/globals.css";
 
 export const metadata: Metadata = {
   title: 'Login',

@@ -1,6 +1,7 @@
 import SideNav from '@/app/ui/admin/sidenav';
 import { Metadata } from 'next';
 import  "@/app/styles/admin.css";
+import  "@/app/styles/globals.css";
 
 export const metadata: Metadata = {
   title: 'Admin',
