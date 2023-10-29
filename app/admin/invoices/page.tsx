@@ -20,6 +20,7 @@ export default async function Page({
   const totalPages = await fetchInvoicesPages(query);
   
   return (
+    
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
         <h1 className={`${titleFont.className}  text-2xl`}>Invoices</h1>

@@ -5,6 +5,7 @@ import RevenueChart from '@/app/ui/admin/revenue-chart';
 import { Suspense } from 'react';
 import { RevenueChartSkeleton, InvoiceSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
 
+
 export default async function Page() {
   return (
     <main>

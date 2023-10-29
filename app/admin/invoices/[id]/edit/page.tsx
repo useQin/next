@@ -8,6 +8,8 @@ export default async function Page({ params: { id } }: { params: { id: string } 
   const customers = await fetchCustomers();
   if (!invoice) {
     notFound();
+    
+
   }
   return (
     <main>
