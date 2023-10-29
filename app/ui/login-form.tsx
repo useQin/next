@@ -1,6 +1,5 @@
 'use client';
- 
-import { titleFont } from '@/app/ui/fonts';
+
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -15,10 +14,8 @@ export default function LoginForm() {
   const [code, action] = useFormState(authenticate, undefined);
   return (
     <form action={action} className="space-y-3">
-      <div className="flex-1 rounded-lg   px-6 pb-4 pt-8">
-        <h1 className={`${titleFont.className}  mb-3 text-2xl`}>
-          Please log in to continue.
-        </h1>
+      <div className="flex-1 rounded-lg  pb-4 pt-8">
+        
         <div className="w-full">
           <div>
             <label
@@ -61,6 +58,9 @@ export default function LoginForm() {
           </div>
         </div>
         <LoginButton />
+        <h1 className={`mt-3 text-[16px]`}>
+          Please log in to continue.
+        </h1>
         <div className="flex h-8 items-end space-x-1">
           {code === 'CredentialSignin' && (
             <>
@@ -72,6 +72,7 @@ export default function LoginForm() {
           )}
         </div>
       </div>
+      
     </form>
   );
 }
