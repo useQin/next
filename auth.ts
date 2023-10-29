@@ -15,8 +15,7 @@ async function getUser(email: string): Promise<User | undefined> {
     throw new Error('Failed to fetch user.');
   }
 }
-
-const option = {
+export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     CredentialsProvider({
@@ -34,8 +33,8 @@ const option = {
           const user = await getUser(email);
           if (!user) return null;
           const passwordsMatch = await bcrypt.compare(password, user.password);
-          if (passwordsMatch) 
-          return user;
+          if (passwordsMatch)
+            return user;
         }
 
         console.log('Invalid credentials');
@@ -43,5 +42,4 @@ const option = {
       },
     }),
   ],
-}
-export const { auth, signIn, signOut } = NextAuth(option);
+})
