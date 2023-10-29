@@ -3,7 +3,8 @@ import { z } from 'zod';
 // 一个 TypeScript 优先的验证库
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
-import { useDebouncedCallback } from 'use-debounce';
+import { signIn } from '@/auth';
+
 
 // 清除缓存
 import { redirect } from 'next/navigation';
@@ -91,3 +92,19 @@ export async function deleteInvoice(formData: FormData) {
   revalidatePath('/admin/invoices');
 }
 
+
+
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', Object.fromEntries(formData));
+  } catch (error) {
+    if ((error as Error).message.includes('CredentialsSignin')) {
+      return 'CredentialSignin';
+    }
+    throw error;
+  }
+}
