@@ -1,10 +1,9 @@
 import  Link from "next/link";
 import InvoiceStatus from '@/app/ui/invoices/status';
-import styles from '@/app/ui/home.module.css';
+import styles from '@/app/styles/home.module.css';
 import { titleFont } from '@/app/ui/fonts';
 import AcmeLogo from '@/app/ui/acme-logo';
 export default function Page() {
-
   return (
     <main >
       <AcmeLogo />

@@ -1,0 +1,35 @@
+/* @import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+code { font-family: 'Fira Code', monospace; } */
+/* 
+@supports (font-variation-settings: normal) {
+  code { font-family: 'Fira Code VF', monospace; }
+} */
+
+:root {
+  --foreground-rgb: 255 ,255 ,255;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+}
+
+body,html {
+  height: 100%;
+  color: rgb(var(--foreground-rgb));
+}
+
+.title-bj{
+}

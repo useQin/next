@@ -1,12 +1,12 @@
 import localFont from 'next/font/local'
 
 export const titleFont = localFont({
-  src: './FiraCode-Bold-5.ttf',
+  src: '../styles/font-static/FiraCode-Bold-5.ttf',
   display: 'swap',
   weight:  '700'
 })
 export const textFont = localFont({
-  src: './FiraCode-Regular-1.ttf',
+  src: '../styles/font-static/FiraCode-Regular-1.ttf',
   display: 'swap',
   weight:  '400'
 })

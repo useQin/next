@@ -1,5 +1,6 @@
 import Cards from '@/app/ui/admin/cards';
 import LatestInvoices from '@/app/ui/admin/latest-invoices';
+import { titleFont } from '@/app/ui/fonts';
 import RevenueChart from '@/app/ui/admin/revenue-chart';
 import { Suspense } from 'react';
 import { RevenueChartSkeleton, InvoiceSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
@@ -7,7 +8,7 @@ import { RevenueChartSkeleton, InvoiceSkeleton, CardsSkeleton } from '@/app/ui/s
 export default async function Page() {
   return (
     <main>
-      <h1 className={`mb-4 text-xl md:text-2xl`}>
+      <h1 className={`${titleFont.className}  mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
